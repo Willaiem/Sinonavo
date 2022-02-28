@@ -58,7 +58,6 @@ export const App = () => {
             countryCode="PL"
             withCountryNameButton
             withFilter
-            visible
           />
           <IconButton title="🎤" />
           <IconButton title="📷" />
@@ -67,7 +66,7 @@ export const App = () => {
         <TextArea accessibilityLabel="" accessibilityHint="" />
       </ScrollView>
       <ScrollView style={{ marginTop: 10 }}>
-        <CountryPicker countryCode="US" withCountryNameButton visible />
+        <CountryPicker countryCode="US" withCountryNameButton />
         <Text>To:</Text>
         <TextArea accessibilityLabel="" accessibilityHint="" editable={false} />
       </ScrollView>
