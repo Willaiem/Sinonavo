@@ -1,11 +1,13 @@
 import { StatusBar } from "expo-status-bar"
-import { Text, View } from "react-native"
+import { View, Text } from "react-native"
+import { TextArea } from "../TextArea/TextArea"
 import { styles } from "./App.css"
 
 export const App = () => {
   return (
     <View style={styles.container}>
-      <Text>Open up App.tsx ziomek to start working on your app!</Text>
+      <TextArea accessibilityLabel="" accessibilityHint="" />
+      <TextArea accessibilityLabel="" accessibilityHint="" />
       <StatusBar style="auto" />
     </View>
   )
