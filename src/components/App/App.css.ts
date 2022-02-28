@@ -5,16 +5,12 @@ const backgroundColor = "#fff"
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
+    margin: 15,
     backgroundColor,
-    alignItems: "center",
+    alignItems: "flex-start",
     justifyContent: "center",
   },
-  textArea: {
-    width: 200,
-    textAlignVertical: "top",
-    borderWidth: 1,
-  },
-  textAreaContainer: {
-    marginTop: 100,
+  icon: {
+    margin: 1,
   },
 })
