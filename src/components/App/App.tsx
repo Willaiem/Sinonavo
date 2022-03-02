@@ -1,5 +1,4 @@
 import { StatusBar } from "expo-status-bar"
-import { useEffect, useRef } from "react"
 import { View, Text, ScrollView } from "react-native"
 import { useKeyboard } from "../../hooks/useKeyboard"
 
