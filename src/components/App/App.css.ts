@@ -7,8 +7,6 @@ export const styles = StyleSheet.create({
     flex: 1,
     margin: 15,
     backgroundColor,
-    alignItems: "flex-start",
-    justifyContent: "center",
   },
   icon: {
     margin: 1,

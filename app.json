@@ -23,7 +23,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.will4_u.Sinonavo"
     },
     "web": {
       "favicon": "./assets/favicon.png"
