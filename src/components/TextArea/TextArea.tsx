@@ -1,18 +1,33 @@
+import { useState } from "react"
 import { TextInput, TextInputProps } from "react-native"
-import { useKeyboard } from "../../hooks/useKeyboard"
 import { styles } from "./TextArea.css"
 
-export const TextArea = (props: TextInputProps) => {
-  const isEditing = useKeyboard()
+const useFocus = () => {
+  const [isFocused, setIsFocused] = useState(false)
 
-  const height = isEditing ? 50 : styles.textArea.height
+  const onFocus = () => {
+    setIsFocused(true)
+  }
+  const onBlur = () => {
+    setIsFocused(false)
+  }
+
+  return { isFocused, onFocus, onBlur }
+}
+
+export const TextArea = (props: TextInputProps) => {
+  const { isFocused, ...events } = useFocus()
 
   return (
     <TextInput
+      {...events}
       {...props}
+      onSelectionChange={e =>
+        console.log("selection change", e.nativeEvent.selection)
+      }
       multiline
       numberOfLines={10}
-      style={{ ...styles.textArea, height }}
+      style={styles.textArea}
     />
   )
 }
