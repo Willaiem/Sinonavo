@@ -4,7 +4,7 @@ import CountryPicker from "react-native-country-picker-modal"
 import { CountryCode } from "react-native-country-picker-modal/lib/types"
 
 import { IconButton } from "../IconButton/IconButton"
-import { styles } from "./TranslationNavbar.css"
+import { styles } from "./Navbar.css"
 
 type SupportedCountries = CountryCode[]
 
@@ -59,7 +59,7 @@ const Picker = () => {
   )
 }
 
-export const TranslationNavbar = () => {
+export const Navbar = () => {
   return (
     <View style={styles.container}>
       <Picker />
