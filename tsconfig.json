@@ -4,6 +4,11 @@
     "strict": true,
     "typeRoots": [
       "./src/types"
-    ]
+    ],
+    "paths": {
+      "@sinonavo/components": [
+        "./src/components/index.ts"
+      ]
+    }
   }
 }

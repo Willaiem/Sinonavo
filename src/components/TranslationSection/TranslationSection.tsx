@@ -1,6 +1,5 @@
 import { View, Text, ScrollView } from "react-native"
-import { TextArea } from "../TextArea/TextArea"
-import { Navbar } from "../Navbar/Navbar"
+import { TextArea, Navbar } from "@sinonavo/components"
 
 export const TranslationSection = ({ type }: { type: "From" | "To" }) => (
   <View>
@@ -12,7 +11,7 @@ export const TranslationSection = ({ type }: { type: "From" | "To" }) => (
           <TextArea
             accessibilityLabel=""
             accessibilityHint=""
-            editable={type === "To"}
+            editable={type === "From"}
           />
         </View>
       </View>

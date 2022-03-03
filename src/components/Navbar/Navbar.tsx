@@ -3,7 +3,7 @@ import { FlatList, Modal, View } from "react-native"
 import CountryPicker from "react-native-country-picker-modal"
 import { CountryCode } from "react-native-country-picker-modal/lib/types"
 
-import { IconButton } from "../IconButton/IconButton"
+import { IconButton } from "@sinonavo/components"
 import { styles } from "./Navbar.css"
 
 type SupportedCountries = CountryCode[]

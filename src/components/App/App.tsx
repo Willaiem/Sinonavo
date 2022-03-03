@@ -1,7 +1,7 @@
 import { StatusBar } from "expo-status-bar"
 import { View } from "react-native"
 
-import { TranslationSection } from "../TranslationSection/TranslationSection"
+import { TranslationSection } from "@sinonavo/components"
 import { useKeyboard } from "../../hooks/useKeyboard"
 import { styles } from "./App.css"
 
