@@ -5,6 +5,7 @@
     "typeRoots": [
       "./src/types"
     ],
+    "jsx": "react-native",
     "paths": {
       "@sinonavo/components": [
         "./src/components/index.ts"

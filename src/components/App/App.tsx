@@ -5,6 +5,7 @@ import { TranslationSection } from "@sinonavo/components"
 import { useKeyboard } from "../../hooks/useKeyboard"
 import { styles } from "./App.css"
 
+
 export const App = () => {
   const isEditing = useKeyboard()
 

@@ -18,7 +18,9 @@
     "react-native": "^0.67.3",
     "react-native-country-picker-modal": "^2.0.0",
     "react-native-dotenv": "^3.3.1",
-    "react-native-web": "^0.17.6"
+    "react-native-web": "^0.17.6",
+    "zod": "^3.13.4",
+    "zustand": "^3.7.1"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
