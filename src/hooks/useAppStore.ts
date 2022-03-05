@@ -1,53 +1,12 @@
 import { DEEPL_SECRET } from 'react-native-dotenv'
+
 import create from 'zustand'
 
-// ! The list of supported languages (as ISO codes) in Deepl API.
-type SupportedLanguages =
-  | 'EN'
-  | 'BG'
-  | 'CN'
-  | 'DK'
-  | 'EE'
-  | 'FI'
-  | 'FR'
-  | 'GR'
-  | 'ES'
-  | 'JP'
-  | 'LT'
-  | 'LV'
-  | 'NL'
-  | 'DE'
-  | 'PL'
-  | 'PT'
-  | 'RU'
-  | 'RO'
-  | 'SK'
-  | 'SI'
-  | 'SE'
-  | 'HU'
-  | 'IT'
+import { APIResponseSchema } from '../schemas/APIResponseSchema'
+import { AppStore, SupportedLanguages } from '../types'
+import { isApiError } from '../validations/isApiError'
 
-type APIResponse = {
-  translations: [{
-    detected_source_language: SupportedLanguages,
-    text: string
-  }]
-}
-
-type APIError = {
-  message: string
-}
-
-type State = {
-  fromLang: SupportedLanguages | null,
-  fromText: string,
-  toLang: SupportedLanguages | null,
-  toText: string,
-  error: APIError | null
-}
-
-
-export const useAppStore = create<State>((set, get) => ({
+export const useAppStore = create<AppStore>((set, get) => ({
   fromLang: null,
   fromText: '',
   toLang: null,
@@ -57,27 +16,26 @@ export const useAppStore = create<State>((set, get) => ({
   setFromText: (text: string) => set({ fromText: text }),
   setToLang: (lang: SupportedLanguages) => set({ toLang: lang }),
   setToText: (text: string) => set({ toText: text }),
+  swap: () => set({ fromLang: get().toLang, fromText: get().toText, toLang: get().fromLang, toText: '' }),
   fetchTranslation: async () => {
-    const fromText = get().fromText
-    const fromLang = get().fromLang
+    const { fromText, toLang } = get()
 
     const authKey = `auth_key=${DEEPL_SECRET ?? ''}`
     const text = `text=${fromText}`
-    const targetLang = fromLang ? `target_lang=${fromLang}` : ''
+    const targetLang = toLang ? `&target_lang=${toLang}` : ''
 
     try {
-      const response = await fetch(`https://api-free.deepl.com/v2/translate?${authKey}&${text}&${targetLang}`)
-      const body = await response.json()
+      const response = await fetch(`https://api-free.deepl.com/v2/translate?${authKey}&${text}${targetLang}`, {
+        method: 'POST'
+      })
 
-      // TODO: insert validation here
+      console.log(JSON.stringify(response))
 
-      // ! set({})
+      const { translations: [{ detected_source_language, text: translatedText }] } = APIResponseSchema.parse(await response.json())
+
+      set({ toLang: detected_source_language, toText: translatedText })
     } catch (err) {
-      // TODO: insert validation here
-
-      // ! set({})
+      set({ error: isApiError(err) ? err : new Error(JSON.stringify(err)) })
     }
   }
 }))
-
-

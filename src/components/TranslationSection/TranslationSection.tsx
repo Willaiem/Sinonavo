@@ -1,16 +1,40 @@
-import { View, Text, ScrollView } from "react-native"
+import { View, Text, ScrollView, TextInputProps } from "react-native"
 import { TextArea, Navbar } from "@sinonavo/components"
 
 import { useDebounce } from "../../hooks/useDebounce";
+import { useAppStore } from "../../hooks/useAppStore";
+
 
 // ! the max length of text that Deepl APL can handle at once.
 const MAX_LENGTH = 5000
 
 export const TranslationSection = ({ type }: { type: "From" | "To" }) => {
-  const fn = useDebounce((text: string) => console.log(text))
+  const { fetchTranslation, fromText, toText, setFromText, setToText } = useAppStore()
 
-  const handleChange = (text: string) => {
-    fn(text)
+  const debouncedFetchTranslation = useDebounce(() => console.log('debounce'), 1000)
+
+  const handleChange = () => {
+    debouncedFetchTranslation()
+  }
+
+  console.log(toText)
+
+  const fromProps: TextInputProps = {
+    value: fromText,
+    accessibilityLabel: '',
+    accessibilityHint: '',
+    onChangeText: (text) => {
+      setFromText(text)
+      handleChange()
+    }
+  }
+
+  const toProps: TextInputProps = {
+    value: toText,
+    accessibilityLabel: '',
+    accessibilityHint: '',
+    onChangeText: setToText,
+    editable: toText.length === 0,
   }
 
   return (
@@ -21,10 +45,7 @@ export const TranslationSection = ({ type }: { type: "From" | "To" }) => {
           <Text>{type}:</Text>
           <View onTouchStart={e => console.log("postion touch", e.nativeEvent)}>
             <TextArea
-              accessibilityLabel=""
-              accessibilityHint=""
-              onChangeText={handleChange}
-              editable={type === "From"}
+              {...(type === 'From' ? fromProps : toProps)}
               maxLength={MAX_LENGTH}
             />
           </View>

@@ -1,10 +1,11 @@
 import { useState } from "react"
-import { FlatList, Modal, View } from "react-native"
+import { FlatList, Modal, TextInput, View } from "react-native"
 import CountryPicker from "react-native-country-picker-modal"
 import { CountryCode } from "react-native-country-picker-modal/lib/types"
 
 import { IconButton } from "@sinonavo/components"
 import { styles } from "./Navbar.css"
+import { SupportedLanguages } from "../../types"
 
 type SupportedCountries = CountryCode[]
 
@@ -45,13 +46,13 @@ const Picker = () => {
       {/* Example from React Native documentation: */}
       <Modal animationType="slide" visible={isOpened}>
         <View style={{ flex: 1 }}>
-          {/* Outer container*/}
-          <View style={{ borderWidth: 1 }}>
-            {/* Inner container */}
+          <View style={{ flex: 1 }}>
             <IconButton title="Close" onPress={() => setIsOpened(!isOpened)} />
-            {/* <FlatList /> */}
-            {/* to render the list of supported countries */}
+            <TextInput style={{ borderWidth: 1 }} />
           </View>
+
+          {/* <FlatList /> */}
+          {/* to render the list of supported countries */}
         </View>
       </Modal>
       <IconButton title="Languages" onPress={() => setIsOpened(!isOpened)} />
