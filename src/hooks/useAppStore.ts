@@ -1,28 +1,33 @@
 import { DEEPL_SECRET } from 'react-native-dotenv'
 
 import create from 'zustand'
+import { SUPPORTED_LANGUAGES } from '../global'
 
 import { APIResponseSchema } from '../schemas/APIResponseSchema'
-import { AppStore, SupportedLanguages } from '../types'
+import { AppStore } from '../types'
 import { isApiError } from '../validations/isApiError'
 
 export const useAppStore = create<AppStore>((set, get) => ({
-  fromLang: null,
-  fromText: '',
-  toLang: null,
-  toText: '',
+  texts: { from: '', to: '' },
+  langs: { from: null, to: null },
+  setLang: ({ type, lang }) => {
+    set({ langs: { ...get().langs, [type]: lang } })
+  },
+  setText: ({ type, text }) => {
+    set({ texts: { ...get().texts, [type]: text } })
+  },
   error: null,
-  setFromLang: (lang: SupportedLanguages) => set({ fromLang: lang }),
-  setFromText: (text: string) => set({ fromText: text }),
-  setToLang: (lang: SupportedLanguages) => set({ toLang: lang }),
-  setToText: (text: string) => set({ toText: text }),
-  swap: () => set({ fromLang: get().toLang, fromText: get().toText, toLang: get().fromLang, toText: '' }),
+  swap: () => {
+    const { texts, langs } = get()
+
+    set({ langs: { from: langs.to, to: langs.from }, texts: { from: texts.to, to: '' } })
+  },
   fetchTranslation: async () => {
-    const { fromText, toLang } = get()
+    const { texts, langs } = get()
 
     const authKey = `auth_key=${DEEPL_SECRET ?? ''}`
-    const text = `text=${fromText}`
-    const targetLang = toLang ? `&target_lang=${toLang}` : ''
+    const text = `text=${texts.from}`
+    const targetLang = langs.to ? `&target_lang=${langs.to}` : ''
 
     try {
       const response = await fetch(`https://api-free.deepl.com/v2/translate?${authKey}&${text}${targetLang}`, {
@@ -33,7 +38,13 @@ export const useAppStore = create<AppStore>((set, get) => ({
 
       const { translations: [{ detected_source_language, text: translatedText }] } = APIResponseSchema.parse(await response.json())
 
-      set({ toLang: detected_source_language, toText: translatedText })
+      const foundSourceLanguage = SUPPORTED_LANGUAGES.find(({ iso }) =>
+        iso === detected_source_language) ?? null
+
+      set({
+        langs: { from: langs.from, to: foundSourceLanguage },
+        texts: { from: texts.from, to: translatedText }
+      })
     } catch (err) {
       set({ error: isApiError(err) ? err : new Error(JSON.stringify(err)) })
     }

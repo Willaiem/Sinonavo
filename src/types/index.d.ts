@@ -2,20 +2,25 @@ import { z } from 'zod'
 import { APIErrorSchema } from '../schemas/APIErrorSchema'
 import { SupportedLanguagesSchema } from '../schemas/SupportedLanguagesSchema'
 
-export type SupportedLanguages = z.infer<typeof SupportedLanguagesSchema>
+export type LanguagesISO = z.infer<typeof SupportedLanguagesSchema>
+
+type Language = {
+  name: string,
+  iso: LanguagesISO
+}
+
+export type SupportedLanguages = Readonly<Language[]>
 
 export type APIError = z.infer<typeof APIErrorSchema>
 
+export type FieldType = 'from' | 'to'
+
 export type AppStore = {
-  fromLang: SupportedLanguages | null,
-  fromText: string,
-  toLang: SupportedLanguages | null,
-  toText: string,
+  langs: { from: Language | null, to: Language | null }
+  texts: { from: string, to: string },
+  setLang: ({ type, lang }: { type: FieldType, lang: Language }) => void,
+  setText: ({ type, text }: { type: FieldType, text: string }) => void,
   error: APIError | Error | null,
-  setFromLang: (lang: SupportedLanguages) => void,
-  setFromText: (text: string) => void,
-  setToLang: (lang: SupportedLanguages) => void,
-  setToText: (text: string) => void,
   swap: () => void,
   fetchTranslation: () => void
 }

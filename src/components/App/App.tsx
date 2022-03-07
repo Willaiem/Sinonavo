@@ -11,9 +11,9 @@ export const App = () => {
 
   return (
     <View style={styles.container}>
-      <TranslationSection type="From" />
+      <TranslationSection type="from" />
 
-      {!isEditing ? <TranslationSection type="To" /> : null}
+      {!isEditing ? <TranslationSection type="to" /> : null}
 
       <StatusBar style="auto" />
     </View>
