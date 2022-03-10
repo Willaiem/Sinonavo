@@ -7,9 +7,6 @@
     "paths": {
       "@sinonavo/components": [
         "./src/components/index.ts"
-      ],
-      "@sinonavo/countriesflags/*.png": [
-        "./assets/countriesflags/*.png"
       ]
     }
   },
