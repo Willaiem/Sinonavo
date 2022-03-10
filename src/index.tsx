@@ -1,6 +1,6 @@
 import { registerRootComponent } from "expo"
 
-import { App } from "./components/App/App"
+import { App } from "@sinonavo/components"
 
 const Root = () => <App />
 

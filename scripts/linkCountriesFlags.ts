@@ -23,24 +23,19 @@ if (filesInDir.length === 0) {
   throw new Error('Target directory is empty.')
 }
 
-const imgPaths = filesInDir.reduce<{ [iso: string]: string }>((acc, fileName) => {
+const imgPathsEntries = filesInDir.reduce((acc, fileName) => {
   const [head] = fileName.split('.')
 
   const filePath = `..${targetPath}/${fileName}`
 
-  acc[head.toUpperCase()] = `require("${filePath}")`
-
-  return acc
-}, {})
-
-const stringifiedObjectWithFns = Object.entries(imgPaths).reduce((acc, [key, value]) => {
-  const entry = `${key}: ${value}, `
+  const entry = `${head.toUpperCase()}: require("${filePath}"), `
 
   return acc + entry
 }, '')
 
+const stringifiedImgPaths = `{${imgPathsEntries}}`
 
-const generatedJSCode = `export default{${removeWhitespace(stringifiedObjectWithFns)}}`
+const generatedJSCode = `export default${removeWhitespace(stringifiedImgPaths)}`
 
 if (!fs.existsSync(outputDir)) {
   fs.mkdirSync(outputFolderDir, {
