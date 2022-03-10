@@ -13,7 +13,9 @@ const targetPath = '/assets/countriesflags'
 
 const outputName = 'countriesflags'
 const outputFile = `${outputName}-link.ts`
-const outputDir = `${rootDir}/links/${outputFile}`
+
+const outputFolderDir = `${rootDir}/links`
+const outputDir = `${outputFolderDir}/${outputFile}`
 
 const filesInDir = fs.readdirSync(path.resolve(`${rootDir}${targetPath}`))
 
@@ -41,6 +43,10 @@ const stringifiedObjectWithFns = Object.entries(imgPaths).reduce((acc, [key, val
 const generatedJSCode = `export default{${removeWhitespace(stringifiedObjectWithFns)}}`
 
 if (!fs.existsSync(outputDir)) {
+  fs.mkdirSync(outputFolderDir, {
+    recursive: true
+  })
+
   fs.appendFileSync(outputDir, generatedJSCode)
   process.exit(0)
 }
