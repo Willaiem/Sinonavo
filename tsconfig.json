@@ -4,13 +4,13 @@
     "strict": true,
     "module": "ESNext",
     "jsx": "react-native",
+    "types": [
+      "./src/types"
+    ],
     "paths": {
       "@sinonavo/components": [
         "./src/components/index.ts"
       ]
     }
-  },
-  "ts-node": {
-    "esm": true
   }
 }
