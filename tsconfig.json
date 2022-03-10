@@ -3,9 +3,6 @@
   "compilerOptions": {
     "strict": true,
     "module": "ESNext",
-    "typeRoots": [
-      "./src/types"
-    ],
     "jsx": "react-native",
     "paths": {
       "@sinonavo/components": [
@@ -15,5 +12,8 @@
         "./assets/countriesflags/*.png"
       ]
     }
+  },
+  "ts-node": {
+    "esm": true
   }
 }

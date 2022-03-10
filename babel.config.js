@@ -7,7 +7,8 @@ module.exports = function (api) {
         'module-resolver',
         {
           alias: {
-            '@sinonavo/components': './src/components/index.ts'
+            '@sinonavo/components': './src/components/index.ts',
+            '@sinonavo/countriesflags/*.png': "./assets/countriesflags/*.png"
           },
         },
       ],
