@@ -4,6 +4,7 @@ import { SupportedLanguages } from "../types"
 export const MAX_LENGTH = 5000
 
 export const SUPPORTED_LANGUAGES: SupportedLanguages = {
+  NOFLAG: { name: 'Automatic', iso: 'NOFLAG' },
   EN: { name: 'English', iso: 'EN' },
   BG: { name: 'Bulgarian', iso: 'BG' },
   CN: { name: 'Chinese', iso: 'CN' },

@@ -2,7 +2,7 @@ import { z } from 'zod'
 import { APIErrorSchema } from '../schemas/APIErrorSchema'
 import { SupportedLanguagesSchema } from '../schemas/SupportedLanguagesSchema'
 
-export type LanguagesISO = z.infer<typeof SupportedLanguagesSchema>
+export type LanguagesISO = z.infer<typeof SupportedLanguagesSchema> | 'NOFLAG'
 
 type Language = {
   name: string,
