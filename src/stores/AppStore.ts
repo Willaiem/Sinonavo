@@ -9,7 +9,7 @@ import { isApiError } from '../validations/isApiError'
 
 export const useAppStore = create<AppStore>((set, get) => ({
   texts: { from: '', to: '' },
-  langs: { from: null, to: null },
+  langs: { from: null, to: { iso: "EN", name: 'English' } },
   setLang: ({ type, lang }) => {
     set({ langs: { ...get().langs, [type]: lang } })
   },
