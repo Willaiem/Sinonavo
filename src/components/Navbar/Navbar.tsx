@@ -46,7 +46,7 @@ const CountryPicker = ({ type }: { type: FieldType }) => {
             <IconButton title="Close" onPress={onClose} />
             <TextInput style={{ borderWidth: 1, width: "80%", marginLeft: 15 }} />
           </View>
-          <FlatList data={SUPPORTED_LANGUAGES} renderItem={({ item }) =>
+          <FlatList data={Object.values(SUPPORTED_LANGUAGES)} renderItem={({ item }) =>
             <CountryFlag onPress={() => {
               setLang({ type, lang: item })
               onClose()

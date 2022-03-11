@@ -9,7 +9,7 @@ import { isApiError } from '../validations/isApiError'
 
 export const useAppStore = create<AppStore>((set, get) => ({
   texts: { from: '', to: '' },
-  langs: { from: null, to: { iso: "EN", name: 'English' } },
+  langs: { from: null, to: SUPPORTED_LANGUAGES.EN },
   setLang: ({ type, lang }) => {
     set({ langs: { ...get().langs, [type]: lang } })
   },
@@ -38,11 +38,8 @@ export const useAppStore = create<AppStore>((set, get) => ({
 
       const { translations: [{ detected_source_language, text: translatedText }] } = APIResponseSchema.parse(await response.json())
 
-      const foundSourceLanguage = SUPPORTED_LANGUAGES.find(({ iso }) =>
-        iso === detected_source_language) ?? null
-
       set({
-        langs: { from: langs.from, to: foundSourceLanguage },
+        langs: { from: langs.from, to: SUPPORTED_LANGUAGES[detected_source_language] },
         texts: { from: texts.from, to: translatedText }
       })
     } catch (err) {

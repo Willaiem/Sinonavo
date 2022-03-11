@@ -9,7 +9,7 @@ type Language = {
   iso: LanguagesISO
 }
 
-export type SupportedLanguages = Readonly<Language[]>
+export type SupportedLanguages = Record<LanguagesISO, Language>
 
 export type APIError = z.infer<typeof APIErrorSchema>
 
