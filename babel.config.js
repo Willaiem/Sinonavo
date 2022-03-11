@@ -6,6 +6,7 @@ module.exports = function (api) {
       [
         'module-resolver',
         {
+          root: ["./"],
           alias: {
             '@sinonavo/components': './src/components/index.ts'
           },

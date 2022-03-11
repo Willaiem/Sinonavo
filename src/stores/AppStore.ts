@@ -1,6 +1,6 @@
 import { DEEPL_SECRET } from 'react-native-dotenv'
-
 import create from 'zustand'
+
 import { SUPPORTED_LANGUAGES } from '../global'
 
 import { APIResponseSchema } from '../schemas/APIResponseSchema'

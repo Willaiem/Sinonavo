@@ -1,20 +1,19 @@
 import { useState } from "react"
 import { FlatList, Modal, TextInput, View, Text, TouchableOpacity, Image } from "react-native"
-// import CountryPicker from "react-native-country-picker-modal"
-// import { CountryCode } from "react-native-country-picker-modal/lib/types"
 
 import { IconButton } from "@sinonavo/components"
 import { styles } from "./Navbar.css"
 import { FieldType, Language, LanguagesISO } from "../../types"
-import { useAppStore } from "../../hooks/useAppStore"
+import { useAppStore } from "../../stores/AppStore"
 import { SUPPORTED_LANGUAGES } from "../../global"
 
+import countriesFlagsLinks from '../../links/countriesflags-link'
 
 const FlagImage = ({ iso }: { iso?: LanguagesISO }) => {
   const getFlagSource = () =>
     iso
-      ? Image.resolveAssetSource(require(`@sinonavo/countriesflags/${(iso ?? '').toLowerCase()}.png`))
-      : Image.resolveAssetSource(require(`@sinonavo/countriesflags/noflag.png`))
+      ? Image.resolveAssetSource(countriesFlagsLinks[iso])
+      : Image.resolveAssetSource(countriesFlagsLinks.NOFLAG)
 
   return <Image height={16} width={12} source={getFlagSource()} />
 }
@@ -22,7 +21,7 @@ const FlagImage = ({ iso }: { iso?: LanguagesISO }) => {
 const CountryFlag = ({ language, onPress }: { language: Language, onPress: () => void }) => (
   <TouchableOpacity onPress={onPress}>
     <Text>{language.name}</Text>
-    <FlagImage />
+    <FlagImage iso={language.iso} />
   </TouchableOpacity>
 )
 
@@ -65,13 +64,6 @@ export const Navbar = ({ type }: { type: FieldType }) => {
   return (
     <View style={styles.container}>
       <CountryPicker type={type} />
-      {/* below component have to be replaced */}
-      {/* <CountryPicker
-        countryCodes={supportedCountries}
-        countryCode="PL"
-        withCountryNameButton
-        withFilter
-      /> */}
       <IconButton title="🎤" />
       <IconButton title="📷" />
     </View>

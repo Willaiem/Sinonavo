@@ -5,8 +5,6 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const removeWhitespace = (s: string) => s.replace(/ /g, '')
-
 const rootDir = __dirname.replace('scripts', '')
 
 const targetPath = '/assets/countriesflags'
@@ -14,7 +12,7 @@ const targetPath = '/assets/countriesflags'
 const outputName = 'countriesflags'
 const outputFile = `${outputName}-link.ts`
 
-const outputFolderDir = `${rootDir}/links`
+const outputFolderDir = `${rootDir}/src/links`
 const outputDir = `${outputFolderDir}/${outputFile}`
 
 const filesInDir = fs.readdirSync(path.resolve(`${rootDir}${targetPath}`))
@@ -26,16 +24,19 @@ if (filesInDir.length === 0) {
 const imgPathsEntries = filesInDir.reduce((acc, fileName) => {
   const [head] = fileName.split('.')
 
-  const filePath = `..${targetPath}/${fileName}`
+  const filePath = `../..${targetPath}/${fileName}`
 
-  const entry = `${head.toUpperCase()}: require("${filePath}"), `
+  const entry = `${head.toUpperCase()}: require("${filePath}") as ImageSourcePropType, `
 
   return acc + entry
 }, '')
 
-const stringifiedImgPaths = `{${imgPathsEntries}}`
+const RNImport = `import {ImageSourcePropType} from 'react-native';`
 
-const generatedJSCode = `export default${removeWhitespace(stringifiedImgPaths)}`
+const stringifiedImgPaths = `{${imgPathsEntries}}`
+const exportedCode = `export default ${stringifiedImgPaths}`
+
+const generatedJSCode = `${RNImport}${exportedCode}`
 
 if (!fs.existsSync(outputDir)) {
   fs.mkdirSync(outputFolderDir, {

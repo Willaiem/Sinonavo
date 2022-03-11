@@ -2,12 +2,14 @@ import { View, Text, ScrollView, TextInputProps } from "react-native"
 import { TextArea, Navbar } from "@sinonavo/components"
 
 import { useDebounce } from "../../hooks/useDebounce";
-import { useAppStore } from "../../hooks/useAppStore";
+import { useAppStore } from "../../stores/AppStore";
 import { FieldType } from "../../types";
 import { MAX_LENGTH } from "../../global";
 
 export const TranslationSection = ({ type }: { type: FieldType }) => {
-  const { fetchTranslation, texts, setText } = useAppStore()
+  const fetchTranslation = useAppStore(state => state.fetchTranslation)
+  const texts = useAppStore(state => state.texts)
+  const setText = useAppStore(state => state.setText)
 
   const debouncedFetchTranslation = useDebounce(() => console.log('debounce'), 1000)
 
