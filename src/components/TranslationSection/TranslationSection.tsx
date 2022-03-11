@@ -5,16 +5,17 @@ import { useDebounce } from "../../hooks/useDebounce";
 import { useAppStore } from "../../stores/AppStore";
 import { FieldType } from "../../types";
 import { MAX_LENGTH } from "../../global";
+import { useCallback } from "react";
 
 export const TranslationSection = ({ type }: { type: FieldType }) => {
   const fetchTranslation = useAppStore(state => state.fetchTranslation)
   const texts = useAppStore(state => state.texts)
   const setText = useAppStore(state => state.setText)
 
-  const debouncedFetchTranslation = useDebounce(() => console.log('debounce'), 1000)
+  const debouncedFn = useCallback(useDebounce(() => console.log('debounce'), 500), [])
 
   const handleChange = () => {
-    debouncedFetchTranslation()
+    debouncedFn()
   }
 
   console.log(texts.to)
@@ -37,13 +38,15 @@ export const TranslationSection = ({ type }: { type: FieldType }) => {
     editable: texts.to.length === 0,
   }
 
+  // onTouchStart={e => console.log("postion touch", e.nativeEvent)}
+
   return (
     <View>
       <ScrollView>
         <View>
           <Navbar type={type} />
           <Text>{type}:</Text>
-          <View onTouchStart={e => console.log("postion touch", e.nativeEvent)}>
+          <View>
             <TextArea
               {...(type === 'from' ? fromProps : toProps)}
               maxLength={MAX_LENGTH}
