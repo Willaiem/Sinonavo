@@ -5,6 +5,7 @@ import { SUPPORTED_LANGUAGES } from "../../../../global"
 
 export const useLanguagePickerModal = () => {
   const setLang = useAppStore(state => state.setLang)
+  const fetchTranslation = useAppStore(state => state.fetchTranslation)
 
   const [isOpened, setIsOpened] = useState(false)
   const [text, setText] = useState('')
@@ -26,5 +27,5 @@ export const useLanguagePickerModal = () => {
     setText('')
   }
 
-  return { supportedLanguages, isOpened, setIsOpened, setLang, handleInputChange, onClose }
+  return { supportedLanguages, isOpened, setIsOpened, setLang, handleInputChange, onClose, fetchTranslation }
 }

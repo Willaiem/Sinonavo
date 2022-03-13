@@ -8,7 +8,7 @@ import { FieldType } from "../../../types"
 
 export const LanguagePickerModal = ({ type }: { type: FieldType }) => {
   const { supportedLanguages, isOpened,
-    handleInputChange, onClose, setIsOpened, setLang } = useLanguagePickerModal()
+    handleInputChange, onClose, setIsOpened, setLang, fetchTranslation } = useLanguagePickerModal()
 
   return (
     <>
@@ -25,6 +25,7 @@ export const LanguagePickerModal = ({ type }: { type: FieldType }) => {
           <FlatList data={supportedLanguages} renderItem={({ item }) =>
             <LanguagePickerItem onPress={() => {
               setLang({ type, lang: item })
+              fetchTranslation()
               onClose()
             }} language={item} />} />
         </View>

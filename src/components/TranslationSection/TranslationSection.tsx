@@ -12,7 +12,7 @@ export const TranslationSection = ({ type }: { type: FieldType }) => {
   const texts = useAppStore(state => state.texts)
   const setText = useAppStore(state => state.setText)
 
-  const debouncedFn = useCallback(useDebounce(() => console.log('debounce'), 500), [])
+  const debouncedFn = useCallback(useDebounce(fetchTranslation, 500), [])
 
   const handleChange = () => {
     debouncedFn()
@@ -35,8 +35,10 @@ export const TranslationSection = ({ type }: { type: FieldType }) => {
     accessibilityLabel: '',
     accessibilityHint: '',
     onChangeText: (text: string) => setText({ type, text }),
-    editable: texts.to.length === 0,
+    editable: texts.to.length > 0,
   }
+
+  console.log(toProps)
 
   // onTouchStart={e => console.log("postion touch", e.nativeEvent)}
 

@@ -28,13 +28,15 @@ export const useAppStore = create<AppStore>((set, get) => ({
   fetchTranslation: async () => {
     const { texts, langs, status } = get()
 
+    if (texts.from.trim().length === 0) return
+
     if (status === 'pending') {
       FetchController.abort('The request was aborted.')
     }
 
     const authKey = `auth_key=${DEEPL_SECRET ?? ''}`
     const text = `text=${texts.from}`
-    const targetLang = langs.to ? `&target_lang=${langs.to}` : ''
+    const targetLang = langs.to ? `&target_lang=${langs.to.iso}` : ''
 
     try {
       set({ status: 'pending' })
@@ -51,7 +53,7 @@ export const useAppStore = create<AppStore>((set, get) => ({
 
       set({
         status: 'success',
-        langs: { from: langs.from, to: SUPPORTED_LANGUAGES[detected_source_language] },
+        langs: { from: SUPPORTED_LANGUAGES[detected_source_language], to: langs.to },
         texts: { from: texts.from, to: translatedText }
       })
     } catch (err) {
