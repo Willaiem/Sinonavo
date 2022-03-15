@@ -3,7 +3,7 @@ import { View } from "react-native"
 
 import { TranslationSection, Buttonlike } from "@sinonavo/components"
 import { useAppStore } from "@sinonavo/stores/AppStore"
-import { useKeyboard } from "../../hooks/useKeyboard"
+import { useKeyboard } from "@sinonavo/hooks/useKeyboard"
 import { styles } from "./App.css"
 
 

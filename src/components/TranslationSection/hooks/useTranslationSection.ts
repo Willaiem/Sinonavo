@@ -2,8 +2,8 @@ import { TextInputProps } from "react-native"
 import { useCallback } from "react";
 
 import { useAppStore } from "@sinonavo/stores/AppStore";
-import { useKeyboard } from "../../../hooks/useKeyboard";
-import { useDebounce } from "../../../hooks/useDebounce";
+import { useKeyboard } from "@sinonavo/hooks/useKeyboard";
+import { useDebounce } from "@sinonavo/hooks/useDebounce";
 import { FieldType } from "../../../types"
 
 const useInputFocus = (type: FieldType) => {

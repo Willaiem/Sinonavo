@@ -16,7 +16,8 @@ module.exports = function (api) {
           alias: {
             '@sinonavo/components': './src/components/index.ts',
             "@sinonavo/types": "./src/types/index.d.ts",
-            "@sinonavo/stores": "./src/stores"
+            "@sinonavo/stores": "./src/stores",
+            "@sinonavo/hooks": "./src/hooks"
           },
         },
       ],

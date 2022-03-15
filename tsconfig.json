@@ -16,6 +16,9 @@
       ],
       "@sinonavo/stores/*": [
         "./src/stores/*.ts"
+      ],
+      "@sinonavo/hooks/*": [
+        "./src/hooks/*.ts"
       ]
     }
   }
