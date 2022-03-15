@@ -8,7 +8,8 @@ module.exports = function (api) {
         {
           root: ["./"],
           alias: {
-            '@sinonavo/components': './src/components/index.ts'
+            '@sinonavo/components': './src/components/index.ts',
+            "@sinonavo/types": "./src/types/index.d.ts"
           },
         },
       ],

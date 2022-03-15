@@ -3,8 +3,8 @@ import { View, Text } from 'react-native'
 import { FlagIcon } from "./FlagIcon/FlagIcon.parts"
 import { LanguagePickerModal } from './LanguagePickerModal/LanguagePickerModal.parts'
 
+import { FieldType } from "@sinonavo/types"
 import { SUPPORTED_LANGUAGES } from "../../global"
-import { FieldType } from "../../types"
 import { useAppStore } from "../../stores/AppStore"
 
 export const LanguagePicker = ({ type }: { type: FieldType }) => {

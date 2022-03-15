@@ -1,10 +1,9 @@
 import { FlatList, Modal, TextInput, View } from "react-native"
-import { Buttonlike } from "@sinonavo/components"
 
 import { LanguagePickerItem } from "../LanguagePickerItem/LanguagePickerItem.parts"
-
+import { Buttonlike } from "@sinonavo/components"
+import { FieldType } from "@sinonavo/types"
 import { useLanguagePickerModal } from "./hooks/useLanguagePickerModal"
-import { FieldType } from "../../../types"
 
 export const LanguagePickerModal = ({ type }: { type: FieldType }) => {
   const { supportedLanguages, isOpened,

@@ -1,11 +1,10 @@
 import { StatusBar } from "expo-status-bar"
 import { View } from "react-native"
 
-import { TranslationSection } from "@sinonavo/components"
-import { styles } from "./App.css"
+import { TranslationSection, Buttonlike } from "@sinonavo/components"
 import { useAppStore } from "../../stores/AppStore"
-import { Buttonlike } from "../Buttonlike/Buttonlike"
 import { useKeyboard } from "../../hooks/useKeyboard"
+import { styles } from "./App.css"
 
 
 const Swap = () => {

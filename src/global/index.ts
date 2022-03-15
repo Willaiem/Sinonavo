@@ -1,4 +1,4 @@
-import { SupportedLanguages } from "../types"
+import { SupportedLanguages } from "@sinonavo/types"
 
 // ! the max length of text that Deepl APL can handle at once.
 export const MAX_LENGTH = 5000

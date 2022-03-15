@@ -1,13 +1,12 @@
+import { Alert } from 'react-native'
 import { DEEPL_SECRET } from 'react-native-dotenv'
 import create from 'zustand'
 import 'abortcontroller-polyfill'
 
-import { SUPPORTED_LANGUAGES } from '../global'
-
+import { FieldType, Language } from '@sinonavo/types'
 import { APIResponseSchema } from '../schemas/APIResponseSchema'
 import { createError } from '../utils/createError'
-import { Alert } from 'react-native'
-import { FieldType, Language } from '../types'
+import { SUPPORTED_LANGUAGES } from '../global'
 
 export type AppStore = {
   langs: { from: Language | null, to: Language | null }
