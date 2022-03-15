@@ -1,5 +1,5 @@
 import { FlatList, Modal, TextInput, View } from "react-native"
-import { IconButton } from "@sinonavo/components"
+import { Buttonlike } from "@sinonavo/components"
 
 import { LanguagePickerItem } from "../LanguagePickerItem/LanguagePickerItem.parts"
 
@@ -19,7 +19,7 @@ export const LanguagePickerModal = ({ type }: { type: FieldType }) => {
             flexWrap: "wrap",
             margin: 10
           }}>
-            <IconButton title="Close" onPress={onClose} />
+            <Buttonlike title="Close" onPress={onClose} />
             <TextInput style={{ borderWidth: 1, width: "80%", marginLeft: 15 }} onChangeText={handleInputChange} />
           </View>
           <FlatList data={supportedLanguages} renderItem={({ item }) =>
@@ -30,7 +30,7 @@ export const LanguagePickerModal = ({ type }: { type: FieldType }) => {
             }} language={item} />} />
         </View>
       </Modal>
-      <IconButton title="Languages" onPress={() => setIsOpened(!isOpened)} />
+      <Buttonlike title="Languages" onPress={() => setIsOpened(!isOpened)} />
     </>
   )
 }
