@@ -1,19 +1,27 @@
 import { StatusBar } from "expo-status-bar"
-import { View } from "react-native"
+import { View, Button } from "react-native"
 
 import { TranslationSection } from "@sinonavo/components"
-import { useKeyboard } from "../../hooks/useKeyboard"
 import { styles } from "./App.css"
+import { useAppStore } from "../../stores/AppStore"
 
+
+const Swap = () => {
+  const swap = useAppStore(state => state.swap)
+
+  return (
+    <Button accessibilityLabel="Swap" title="🔁" onPress={() => swap()} />
+  )
+}
 
 export const App = () => {
-  const isEditing = useKeyboard()
-
   return (
     <View style={styles.container}>
       <TranslationSection type="from" />
 
-      {!isEditing ? <TranslationSection type="to" /> : null}
+      <Swap />
+
+      <TranslationSection type="to" />
 
       <StatusBar style="auto" />
     </View>
