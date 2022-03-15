@@ -14,14 +14,3 @@ export type SupportedLanguages = Record<LanguagesISO, Language>
 export type APIError = z.infer<typeof APIErrorSchema>
 
 export type FieldType = 'from' | 'to'
-
-export type AppStore = {
-  langs: { from: Language | null, to: Language | null }
-  texts: { from: string, to: string },
-  status: "idle" | "pending" | "success" | "error"
-  error: APIError | Error | null,
-  setLang: ({ type, lang }: { type: FieldType, lang: Language }) => void,
-  setText: ({ type, text }: { type: FieldType, text: string }) => void,
-  swap: () => void,
-  fetchTranslation: () => void
-}

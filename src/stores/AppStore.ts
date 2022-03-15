@@ -1,29 +1,52 @@
 import { DEEPL_SECRET } from 'react-native-dotenv'
 import create from 'zustand'
+import 'abortcontroller-polyfill'
 
 import { SUPPORTED_LANGUAGES } from '../global'
 
 import { APIResponseSchema } from '../schemas/APIResponseSchema'
-import { AppStore } from '../types'
-import { isApiError } from '../validations/isApiError'
+import { createError } from '../utils/createError'
+import { Alert } from 'react-native'
+import { FieldType, Language } from '../types'
 
-const FetchController = new AbortController()
+export type AppStore = {
+  langs: { from: Language | null, to: Language | null }
+  setLang: ({ type, lang }: { type: FieldType, lang: Language }) => void,
+  texts: { from: string, to: string },
+  setText: ({ type, text }: { type: FieldType, text: string }) => void,
+  focusedInput: FieldType | null,
+  setFocusedInput: (type: FieldType | null) => void,
+  status: "idle" | "pending" | "success" | "error"
+  error: Error | null,
+  swap: () => void,
+  fetchTranslation: () => void
+}
+
+const FetchController = new window.AbortController()
+const signal = FetchController.signal
 
 export const useAppStore = create<AppStore>((set, get) => ({
   texts: { from: '', to: '' },
-  langs: { from: null, to: SUPPORTED_LANGUAGES.EN },
-  status: 'idle',
-  setLang: ({ type, lang }) => {
-    set({ langs: { ...get().langs, [type]: lang } })
-  },
   setText: ({ type, text }) => {
     set({ texts: { ...get().texts, [type]: text } })
   },
+  langs: { from: null, to: SUPPORTED_LANGUAGES.EN },
+  setLang: ({ type, lang }) => {
+    set({ langs: { ...get().langs, [type]: lang } })
+  },
+  focusedInput: null,
+  setFocusedInput: (type) => {
+    set({ focusedInput: type })
+  },
+  status: 'idle',
   error: null,
   swap: () => {
     const { texts, langs } = get()
 
+    if (texts.from.trim().length === 0) return
+
     set({ langs: { from: langs.to, to: langs.from }, texts: { from: texts.to, to: '' } })
+    get().fetchTranslation()
   },
   fetchTranslation: async () => {
     const { texts, langs, status } = get()
@@ -31,6 +54,7 @@ export const useAppStore = create<AppStore>((set, get) => ({
     if (texts.from.trim().length === 0) return
 
     if (status === 'pending') {
+      console.log('ABORTED!!!')
       FetchController.abort('The request was aborted.')
     }
 
@@ -43,7 +67,7 @@ export const useAppStore = create<AppStore>((set, get) => ({
 
       const response = await fetch(`https://api-free.deepl.com/v2/translate?${authKey}&${text}${targetLang}`, {
         method: 'POST',
-        signal: FetchController.signal
+        signal
       })
 
       console.log('response', JSON.stringify(response))
@@ -57,7 +81,31 @@ export const useAppStore = create<AppStore>((set, get) => ({
         texts: { from: texts.from, to: translatedText }
       })
     } catch (err) {
-      set({ status: 'error', error: isApiError(err) ? err : new Error(JSON.stringify(err)) })
+      set({ status: 'error', error: createError(err) })
+
+      // showAlertError()
     }
   }
 }))
+
+function showAlertError() {
+  const fetchTranslation = useAppStore(state => state.fetchTranslation)
+
+  Alert.alert(
+    'Something went wrong...',
+    `Unable to get the translation. Please try again.`,
+    [
+      {
+        text: 'Try again',
+        onPress: () => fetchTranslation()
+      },
+      {
+        text: 'Cancel',
+        style: 'cancel',
+      }
+    ],
+    {
+      cancelable: false
+    }
+  )
+}
