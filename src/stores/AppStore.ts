@@ -6,9 +6,9 @@ import 'abortcontroller-polyfill'
 import { FieldType, Language } from '@sinonavo/types'
 import { APIResponseSchema } from '../schemas/APIResponseSchema'
 import { createError } from '../utils/createError'
-import { SUPPORTED_LANGUAGES } from '../global'
+import { SUPPORTED_LANGUAGES } from '@sinonavo/global'
 
-export type AppStore = {
+type AppStore = {
   langs: { from: Language | null, to: Language | null }
   setLang: ({ type, lang }: { type: FieldType, lang: Language }) => void,
   texts: { from: string, to: string },

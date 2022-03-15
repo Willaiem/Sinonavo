@@ -1,7 +1,7 @@
 import { useState } from "react"
 
 import { useAppStore } from "@sinonavo/stores/AppStore"
-import { SUPPORTED_LANGUAGES } from "../../../../global"
+import { SUPPORTED_LANGUAGES } from "@sinonavo/global"
 
 export const useLanguagePickerModal = () => {
   const setLang = useAppStore(state => state.setLang)

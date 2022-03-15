@@ -2,7 +2,7 @@ import { View, Text } from 'react-native'
 
 import { FieldType } from "@sinonavo/types"
 import { useAppStore } from "@sinonavo/stores/AppStore"
-import { SUPPORTED_LANGUAGES } from "../../global"
+import { SUPPORTED_LANGUAGES } from "@sinonavo/global"
 
 import { FlagIcon } from "./FlagIcon/FlagIcon.parts"
 import { LanguagePickerModal } from './LanguagePickerModal/LanguagePickerModal.parts'

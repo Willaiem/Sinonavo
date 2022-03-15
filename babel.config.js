@@ -17,7 +17,8 @@ module.exports = function (api) {
             '@sinonavo/components': './src/components/index.ts',
             "@sinonavo/types": "./src/types/index.d.ts",
             "@sinonavo/stores": "./src/stores",
-            "@sinonavo/hooks": "./src/hooks"
+            "@sinonavo/hooks": "./src/hooks",
+            "@sinonavo/global": './src/global/index.ts'
           },
         },
       ],

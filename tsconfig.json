@@ -19,6 +19,9 @@
       ],
       "@sinonavo/hooks/*": [
         "./src/hooks/*.ts"
+      ],
+      "@sinonavo/global": [
+        "./src/global/index.ts"
       ]
     }
   }
