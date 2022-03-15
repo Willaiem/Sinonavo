@@ -15,7 +15,7 @@ export type AppStore = {
   texts: { from: string, to: string },
   setText: ({ type, text }: { type: FieldType, text: string }) => void,
   focusedInput: FieldType | null,
-  setFocusedInput: (type: FieldType | null) => void,
+  setFocusedInput: (type: FieldType) => void,
   status: "idle" | "pending" | "success" | "error"
   error: Error | null,
   swap: () => void,
