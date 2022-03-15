@@ -1,11 +1,11 @@
 import { View, Text } from 'react-native'
 
+import { FieldType } from "@sinonavo/types"
+import { useAppStore } from "@sinonavo/stores/AppStore"
+import { SUPPORTED_LANGUAGES } from "../../global"
+
 import { FlagIcon } from "./FlagIcon/FlagIcon.parts"
 import { LanguagePickerModal } from './LanguagePickerModal/LanguagePickerModal.parts'
-
-import { FieldType } from "@sinonavo/types"
-import { SUPPORTED_LANGUAGES } from "../../global"
-import { useAppStore } from "../../stores/AppStore"
 
 export const LanguagePicker = ({ type }: { type: FieldType }) => {
   const lang = useAppStore(state => state.langs)[type]

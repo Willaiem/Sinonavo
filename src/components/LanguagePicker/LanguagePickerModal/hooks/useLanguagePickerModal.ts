@@ -1,6 +1,6 @@
 import { useState } from "react"
 
-import { useAppStore } from "../../../../stores/AppStore"
+import { useAppStore } from "@sinonavo/stores/AppStore"
 import { SUPPORTED_LANGUAGES } from "../../../../global"
 
 export const useLanguagePickerModal = () => {
@@ -16,9 +16,8 @@ export const useLanguagePickerModal = () => {
 
   const supportedLanguages = text.length > 0
     ? Object.values(SUPPORTED_LANGUAGES)
-      .filter(({ name }: { name: string }) =>
+      .filter(({ name }) =>
         name.toLowerCase().includes(text.toLowerCase()))
-
     : Object.values(SUPPORTED_LANGUAGES)
 
 

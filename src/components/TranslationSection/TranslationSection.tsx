@@ -3,7 +3,7 @@ import { View, Text, ScrollView } from "react-native"
 import { TextArea, Navbar } from "@sinonavo/components"
 import { FieldType } from "../../types";
 import { MAX_LENGTH } from "../../global";
-import { useAppStore } from "../../stores/AppStore";
+import { useAppStore } from "@sinonavo/stores/AppStore";
 import { useTranslationSection } from "./hooks/useTranslationSection";
 
 export const TranslationSection = ({ type }: { type: FieldType }) => {
