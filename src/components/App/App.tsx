@@ -2,7 +2,7 @@ import { StatusBar } from "expo-status-bar"
 import { View } from "react-native"
 
 import { TranslationSection, Buttonlike } from "@sinonavo/components"
-import { useAppStore } from "../../stores/AppStore"
+import { useAppStore } from "@sinonavo/stores/AppStore"
 import { useKeyboard } from "../../hooks/useKeyboard"
 import { styles } from "./App.css"
 

@@ -13,6 +13,9 @@
       ],
       "@sinonavo/types": [
         "./src/types/index.d.ts"
+      ],
+      "@sinonavo/stores/*": [
+        "./src/stores/*.ts"
       ]
     }
   }

@@ -7,9 +7,16 @@ module.exports = function (api) {
         'module-resolver',
         {
           root: ["./"],
+          extensions: [
+            '.js',
+            '.jsx',
+            '.ts',
+            '.tsx',
+          ],
           alias: {
             '@sinonavo/components': './src/components/index.ts',
-            "@sinonavo/types": "./src/types/index.d.ts"
+            "@sinonavo/types": "./src/types/index.d.ts",
+            "@sinonavo/stores": "./src/stores"
           },
         },
       ],
