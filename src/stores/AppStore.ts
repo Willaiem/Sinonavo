@@ -18,6 +18,7 @@ type AppStore = {
   status: "idle" | "pending" | "success" | "error"
   error: Error | null,
   swap: () => void,
+  showAlertError: () => void,
   fetchTranslation: () => void
 }
 
@@ -46,8 +47,29 @@ export const useAppStore = create<AppStore>((set, get) => ({
     set({ langs: { from: langs.to, to: langs.from }, texts: { from: texts.to, to: '' } })
     get().fetchTranslation()
   },
+  showAlertError: () => {
+    const { fetchTranslation } = get()
+
+    Alert.alert(
+      'Something went wrong...',
+      `Unable to get the translation. Please try again.`,
+      [
+        {
+          text: 'Try again',
+          onPress: () => fetchTranslation()
+        },
+        {
+          text: 'Cancel',
+          style: 'cancel',
+        }
+      ],
+      {
+        cancelable: false
+      }
+    )
+  },
   fetchTranslation: async () => {
-    const { texts, langs, status } = get()
+    const { texts, langs, status, showAlertError } = get()
 
     if (texts.from.trim().length === 0) return
 
@@ -80,29 +102,7 @@ export const useAppStore = create<AppStore>((set, get) => ({
     } catch (err) {
       set({ status: 'error', error: createError(err) })
 
-      // showAlertError()
+      showAlertError()
     }
   }
 }))
-
-function showAlertError() {
-  const fetchTranslation = useAppStore(state => state.fetchTranslation)
-
-  Alert.alert(
-    'Something went wrong...',
-    `Unable to get the translation. Please try again.`,
-    [
-      {
-        text: 'Try again',
-        onPress: () => fetchTranslation()
-      },
-      {
-        text: 'Cancel',
-        style: 'cancel',
-      }
-    ],
-    {
-      cancelable: false
-    }
-  )
-}
