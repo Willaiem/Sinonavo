@@ -21,8 +21,7 @@ type AppStore = {
   fetchTranslation: () => void
 }
 
-const FetchController = new window.AbortController()
-const signal = FetchController.signal
+const RequestController = new window.AbortController()
 
 export const useAppStore = create<AppStore>((set, get) => ({
   texts: { from: '', to: '' },
@@ -53,8 +52,7 @@ export const useAppStore = create<AppStore>((set, get) => ({
     if (texts.from.trim().length === 0) return
 
     if (status === 'pending') {
-      console.log('ABORTED!!!')
-      FetchController.abort('The request was aborted.')
+      RequestController.abort('The request was aborted.')
     }
 
     const authKey = `auth_key=${DEEPL_SECRET ?? ''}`
@@ -66,7 +64,7 @@ export const useAppStore = create<AppStore>((set, get) => ({
 
       const response = await fetch(`https://api-free.deepl.com/v2/translate?${authKey}&${text}${targetLang}`, {
         method: 'POST',
-        signal
+        signal: RequestController.signal
       })
 
       console.log('response', JSON.stringify(response))

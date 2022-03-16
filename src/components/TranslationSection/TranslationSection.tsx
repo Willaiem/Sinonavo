@@ -1,11 +1,65 @@
-import { View, Text, ScrollView } from "react-native"
+import { View, Text, ScrollView, Alert } from "react-native"
+import * as Clipboard from 'expo-clipboard';
 
-import { TextArea, Navbar } from "@sinonavo/components"
+import { TextArea, Navbar, Buttonlike } from "@sinonavo/components"
 import { FieldType } from "@sinonavo/types";
 import { MAX_LENGTH } from "@sinonavo/global";
 import { useAppStore } from "@sinonavo/stores/AppStore";
 
 import { useTranslationSection } from "./hooks/useTranslationSection";
+import { useKeyboard } from "@sinonavo/hooks/useKeyboard";
+
+const ClipboardButton = ({ type }: { type: FieldType }) => {
+  const texts = useAppStore(state => state.texts)
+  const text = texts[type]
+
+  const isEditing = useKeyboard()
+  const isEmpty = text.trim().length === 0
+
+  const handleClipboard = () => {
+    Clipboard.setString(text)
+    Alert.alert('Copied to clipboard!')
+  }
+
+  return !isEditing && !isEmpty ? (
+    <Buttonlike
+      style={{
+        position: 'absolute',
+        // ! TODO: needs to be checked on different devices 
+        right: 50,
+        bottom: 5
+      }}
+      accessibilityLabel="Copy to clipboard" title="📋" onPress={handleClipboard} />
+  ) : null
+}
+
+const ClearButton = ({ type }: { type: FieldType }) => {
+  const fromText = useAppStore(state => state.texts.from)
+  const setText = useAppStore(state => state.setText)
+  const isEditing = useKeyboard()
+
+  const handleCleaning = () => {
+    setText({
+      type: 'from',
+      text: ''
+    })
+    setText({
+      type: 'to',
+      text: ''
+    })
+  }
+
+  return !isEditing && type === 'from' && fromText.trim().length > 0 ? (
+    <Buttonlike
+      style={{
+        position: 'absolute',
+        // ! TODO: needs to be checked on different devices 
+        right: 50,
+        bottom: 35
+      }}
+      accessibilityLabel={`Clear the fields`} title="❌" onPress={handleCleaning} />
+  ) : null
+}
 
 export const TranslationSection = ({ type }: { type: FieldType }) => {
   const { shouldBeVisible, inputProps } = useTranslationSection(type)
@@ -25,6 +79,8 @@ export const TranslationSection = ({ type }: { type: FieldType }) => {
               {...inputProps}
               maxLength={MAX_LENGTH}
             />
+            <ClipboardButton type={type} />
+            <ClearButton type={type} />
           </View>
         </View>
       </ScrollView>
