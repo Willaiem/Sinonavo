@@ -1,6 +1,7 @@
 import { Alert } from 'react-native'
 import { DEEPL_SECRET } from 'react-native-dotenv'
 import create from 'zustand'
+// ! TODO: może to wywołuje bugi?
 import 'abortcontroller-polyfill'
 
 import { FieldType, Language } from '@sinonavo/types'
@@ -71,8 +72,12 @@ export const useAppStore = create<AppStore>((set, get) => ({
   fetchTranslation: async () => {
     const { texts, langs, status, showAlertError } = get()
 
-    if (texts.from.trim().length === 0) return
+    const isFromTextEmpty = texts.from.trim().length === 0
+    if (isFromTextEmpty) return
 
+    // ! TODO: tworzy jakieś bugi związane z requestem.
+    // ! albo w ogóle blokuje wszystkie requesty i wywala błąd (Alert się odpala)
+    // ! albo jak nie ma błędu to pole "to" się "czyści"
     if (status === 'pending') {
       RequestController.abort('The request was aborted.')
     }
@@ -100,6 +105,9 @@ export const useAppStore = create<AppStore>((set, get) => ({
         texts: { from: texts.from, to: translatedText }
       })
     } catch (err) {
+      console.log('error', JSON.stringify(err))
+      console.log('createError', createError(err))
+
       set({ status: 'error', error: createError(err) })
 
       showAlertError()

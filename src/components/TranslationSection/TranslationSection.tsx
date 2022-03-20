@@ -1,4 +1,6 @@
-import { View, Text, ScrollView, Alert } from "react-native"
+import { Text, ScrollView, Alert } from "react-native"
+import { View, styled } from 'dripsy'
+import { MotiView } from 'moti'
 import * as Clipboard from 'expo-clipboard';
 
 import { TextArea, Navbar, Buttonlike } from "@sinonavo/components"
@@ -9,9 +11,10 @@ import { useAppStore } from "@sinonavo/stores/AppStore";
 import { useTranslationSection } from "./hooks/useTranslationSection";
 import { useKeyboard } from "@sinonavo/hooks/useKeyboard";
 
+const AnimatedView = styled(MotiView)()
+
 const ClipboardButton = ({ type }: { type: FieldType }) => {
-  const texts = useAppStore(state => state.texts)
-  const text = texts[type]
+  const text = useAppStore(state => state.texts[type])
 
   const isEditing = useKeyboard()
   const isEmpty = text.trim().length === 0
@@ -68,7 +71,10 @@ export const TranslationSection = ({ type }: { type: FieldType }) => {
   const loadingIndicator = status === 'pending' ? <Text>INSERT THE PULSING LOADING BAR HERE!!!</Text> : null
 
   return shouldBeVisible ? (
-    <View>
+    <AnimatedView
+      transition={{ type: 'timing', duration: 2000 }}
+      from={{ opacity: 0 }}
+      animate={{ opacity: 1 }}>
       <ScrollView>
         <View>
           <Navbar type={type} />
@@ -84,6 +90,6 @@ export const TranslationSection = ({ type }: { type: FieldType }) => {
           </View>
         </View>
       </ScrollView>
-    </View>
+    </AnimatedView>
   ) : null
 }

@@ -2,8 +2,10 @@ import { useState } from "react"
 
 import { useAppStore } from "@sinonavo/stores/AppStore"
 import { SUPPORTED_LANGUAGES } from "@sinonavo/global"
+import { FieldType } from "@sinonavo/types"
 
-export const useLanguagePickerModal = () => {
+export const useLanguageModal = (type: FieldType) => {
+  const lang = useAppStore(state => state.langs[type])
   const setLang = useAppStore(state => state.setLang)
   const fetchTranslation = useAppStore(state => state.fetchTranslation)
 
@@ -26,5 +28,5 @@ export const useLanguagePickerModal = () => {
     setText('')
   }
 
-  return { supportedLanguages, isOpened, setIsOpened, setLang, handleInputChange, onClose, fetchTranslation }
+  return { supportedLanguages, isOpened, setIsOpened, lang, setLang, handleInputChange, onClose, fetchTranslation }
 }

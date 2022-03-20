@@ -1,7 +1,7 @@
 import { Image } from "react-native"
 
 import { LanguagesISO } from "@sinonavo/types"
-import countriesFlagsLinks from '../../../links/countriesflags-link'
+import countriesFlagsLinks from '../../links/countriesflags-link'
 
 export const FlagIcon = ({ iso }: { iso?: LanguagesISO }) => {
   const getFlagSource = () =>
