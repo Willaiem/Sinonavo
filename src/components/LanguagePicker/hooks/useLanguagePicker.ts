@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useMemo, useState } from "react"
 
 import { useAppStore } from "@sinonavo/stores/AppStore"
 import { SUPPORTED_LANGUAGES } from "@sinonavo/global"
@@ -16,11 +16,13 @@ export const useLanguageModal = (type: FieldType) => {
     setText(inputText.trim())
   }
 
-  const supportedLanguages = text.length > 0
-    ? Object.values(SUPPORTED_LANGUAGES)
+  const supportedLanguages = useMemo(() => Object.values(SUPPORTED_LANGUAGES), [])
+
+  const filteredLanguages = text.length > 0
+    ? supportedLanguages
       .filter(({ name }) =>
         name.toLowerCase().includes(text.toLowerCase()))
-    : Object.values(SUPPORTED_LANGUAGES)
+    : supportedLanguages
 
 
   const onClose = () => {
@@ -28,5 +30,5 @@ export const useLanguageModal = (type: FieldType) => {
     setText('')
   }
 
-  return { supportedLanguages, isOpened, setIsOpened, lang, setLang, handleInputChange, onClose, fetchTranslation }
+  return { filteredLanguages, isOpened, setIsOpened, lang, setLang, handleInputChange, onClose, fetchTranslation }
 }

@@ -1,11 +1,9 @@
-import { StyleSheet } from "react-native"
+import { typeAsDripsyStyles } from "../../utils/typeAsDripsyStyles"
 
-const backgroundColor = "#fff"
-
-export const styles = StyleSheet.create({
+export const styles = typeAsDripsyStyles({
   container: {
     flex: 1,
     margin: 15,
-    backgroundColor,
+    backgroundColor: "#fff",
   },
 })

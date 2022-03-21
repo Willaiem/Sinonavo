@@ -11,7 +11,7 @@ import { useLanguageModal } from './hooks/useLanguagePicker'
 import { styles } from './LanguagePicker.css'
 
 export const LanguagePicker = ({ type }: { type: FieldType }) => {
-  const { supportedLanguages, isOpened, lang, handleInputChange,
+  const { filteredLanguages, isOpened, lang, handleInputChange,
     onClose, setLang, setIsOpened, fetchTranslation } = useLanguageModal(type)
 
   return (
@@ -22,7 +22,7 @@ export const LanguagePicker = ({ type }: { type: FieldType }) => {
             <Buttonlike title="Close" onPress={onClose} />
             <TextInput sx={styles.innerModalInput} onChangeText={handleInputChange} />
           </View>
-          <FlatList data={supportedLanguages} renderItem={({ item }) =>
+          <FlatList data={filteredLanguages} renderItem={({ item }) =>
             <LanguagePickerItem onPress={() => {
               setLang({ type, lang: item })
               fetchTranslation()

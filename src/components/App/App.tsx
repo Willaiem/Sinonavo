@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar"
-import { View } from "react-native"
+import { View } from 'dripsy'
 
 import { TranslationSection, Buttonlike } from "@sinonavo/components"
 import { useAppStore } from "@sinonavo/stores/AppStore"
@@ -18,7 +18,7 @@ const Swap = () => {
 
 export const App = () => {
   return (
-    <View style={styles.container}>
+    <View sx={styles.container}>
       <TranslationSection type="from" />
       <Swap />
       <TranslationSection type="to" />
