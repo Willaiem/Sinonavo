@@ -1,6 +1,6 @@
-import { StyleSheet } from "react-native"
+import { typeAsDripsyStyles } from "../../utils/typeAsDripsyStyles"
 
-export const styles = StyleSheet.create({
+export const styles = typeAsDripsyStyles({
   icon: {
     fontSize: 20,
   },

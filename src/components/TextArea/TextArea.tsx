@@ -1,13 +1,13 @@
-import { TextInput, TextInputProps } from "react-native"
+import { TextInput, DripsyTextInputProps } from 'dripsy'
 import { styles } from "./TextArea.css"
 
-export const TextArea = (props: TextInputProps) => {
+export const TextArea = (props: DripsyTextInputProps) => {
   return (
     <TextInput
       {...props}
       multiline
       numberOfLines={10}
-      style={styles.textArea}
+      sx={styles.textArea}
     />
   )
 }
