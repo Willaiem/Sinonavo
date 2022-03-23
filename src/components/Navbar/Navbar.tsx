@@ -9,8 +9,8 @@ export const Navbar = ({ type }: { type: FieldType }) => {
     <View style={styles.container}>
       <LanguagePicker type={type} />
       {/* Below are not important until the app became MVP. */}
-      {/* <Buttonlike title="🎤" /> */}
-      <Buttonlike title="📷" />
+      <Buttonlike title="🎤" />
+      {/* <Buttonlike title="📷" /> */}
     </View>
   )
 }
